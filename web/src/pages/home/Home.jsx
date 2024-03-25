@@ -92,12 +92,12 @@ const Home = () => {
               <div className="absolute top-[10%] left-0 w-full h-[90%] p-1">
                 <div className="h-full w-full flex justify-between ">
                   <div className="">
-                    {/* <video
+                    <video
                       src="https://codeshare.io/-/img/example-code.mp4?v=v3.32.2"
                       className="h-[70%]"
                       alt="programming_video"
                       autoPlay
-                    /> */}
+                    />
                   </div>
                   <div className="w-[30%]">
                     <video
@@ -107,12 +107,12 @@ const Home = () => {
                       autoPlay
                     />
                     <div className="flex justify-end">
-                      {/* <video
+                      <video
                         src="https://codeshare.io/-/img/example-user2.mp4?v=v3.32.2"
                         className="w-1/2"
                         alt="programming_video"
                         autoPlay
-                      /> */}
+                      />
                       <video
                         src="https://codeshare.io/-/img/example-user3.mp4?v=v3.32.2"
                         className="w-1/2"
