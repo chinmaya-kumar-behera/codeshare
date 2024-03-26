@@ -3,9 +3,24 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const generateRandomString = () => {
+    const string =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+
+    for (let i = 0; i < 9; i++) {
+      let ind = Math.floor(Math.random() * string.length);
+      result += string.charAt(ind);
+    }
+    return result;
+  };
+
   const onBtnClick = () => {
-    navigate("/hsyx-ehd-vhf")
-  }
+    const uniqueString = generateRandomString();
+    navigate(`/${uniqueString}`);
+  };
+
   return (
     <main className="w-full h-auto bg-gradient-to-b from-[#38343c] to-[#4d77bb]">
       {/* //navbar */}
