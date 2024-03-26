@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaDownload, FaPlus } from "react-icons/fa6";
 import Settings from "./Settings";
+import NavigationHandler from "../../../handlers/NavigationHandler";
 
 const SettingBar = ({ setEditConfig, editorConfig }) => {
+  const { navigateToNewUrl } = NavigationHandler();
   const [aside, setAside] = useState(false);
   const asideRef = useRef(null);
 
@@ -51,7 +53,10 @@ const SettingBar = ({ setEditConfig, editorConfig }) => {
           </div>
 
           <div className="p-4 bg-[#31353f] group">
-            <FaPlus className="text-xl group-hover:text-white transition-all" />
+            <FaPlus
+              className="text-xl group-hover:text-white transition-all"
+              onClick={navigateToNewUrl}
+            />
           </div>
           <div className="bg-[#31353f] w-full h-full"></div>
         </div>

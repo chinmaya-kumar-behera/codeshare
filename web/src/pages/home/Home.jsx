@@ -1,25 +1,9 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import NavigationHandler from '../../handlers/NavigationHandler';
 
 const Home = () => {
-  const navigate = useNavigate();
-
-  const generateRandomString = () => {
-    const string =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
-
-    for (let i = 0; i < 9; i++) {
-      let ind = Math.floor(Math.random() * string.length);
-      result += string.charAt(ind);
-    }
-    return result;
-  };
-
-  const onBtnClick = () => {
-    const uniqueString = generateRandomString();
-    navigate(`/${uniqueString}`);
-  };
+  const { navigateToNewUrl } = NavigationHandler();
 
   return (
     <main className="w-full h-auto bg-gradient-to-b from-[#38343c] to-[#4d77bb]">
@@ -52,7 +36,7 @@ const Home = () => {
         <div className="flex flex-col gap-6 justify-center items-center">
           <button
             className="px-10 py-4 bg-[#ec3360] text-center hover:bg-[#eb1d4e] rounded text-white"
-            onClick={onBtnClick}
+            onClick={navigateToNewUrl}
           >
             Share Code Now
           </button>

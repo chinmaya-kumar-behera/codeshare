@@ -10,6 +10,7 @@ function Code() {
   const param = useParams();
   const { id } = param;
   const { getCodeHandler } = URLHandler();
+  console.log(id)
 
   const defaultValue = {
     code: "var message = 'Monaco Editor!'\nconsole.log(message);",
@@ -23,7 +24,16 @@ function Code() {
     fontSize: defaultValue.fontSize,
   });
 
+  const editorDefaultValue = () => {
+    setEditConfig({
+      language: defaultValue.language,
+      fontSize: defaultValue.fontSize,
+    });
+    setCode(defaultValue.code);
+  }
+
   useEffect(() => {
+    console.log("useEffeect caled")
     getCodeHandler(id)
       .then((data) => updateEditorValue(data.data.data))
       .catch((err) => console.log(err));
@@ -34,6 +44,8 @@ function Code() {
       const { code, setting } = data;
       setCode(code);
       setEditConfig({ ...setting });
+    } else {
+      editorDefaultValue()
     }
   }
 
@@ -52,8 +64,7 @@ function Code() {
       socket.off("roomJoined");
       socket.off("newCode");
     }
-    
-  }, []);
+  }, [id]);
 
   return (
     <div className="">
