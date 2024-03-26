@@ -2,12 +2,12 @@ import CodeHeader from "./components/CodeHeader";
 import CodeEditor from "./components/CodeEditor";
 import SettingBar from "./components/SettingBar";
 import { useEffect, useState } from "react";
-import socketIo from "socket.io-client";
 import { useParams } from "react-router-dom";
 import URLHandler from "../../handlers/URLHandler";
+import { socket } from "../../config/socket";
 
 function Code() {
-  const socket = socketIo.connect("http://localhost:5000");
+  
   const param = useParams();
   const { id } = param;
   const { getCodeHandler } = URLHandler();
@@ -18,16 +18,16 @@ function Code() {
     fontSize: 16,
   });
 
-  useEffect(() => {
-    socket.emit('welcome')
-  }, [socket]);
+  // useEffect(() => {
+  //   getCodeHandler(id)
+  //     .then((res) => {console.log(res)})
+  //     .catch((err) => console.log(err));
+  // },[id])
 
-
   useEffect(() => {
-    getCodeHandler(id)
-      .then((res) => {console.log(res)})
-      .catch((err) => console.log(err));
-  },[])
+    console.log("code useEffect called");
+    socket.emit("initialEmit", { msg: "Hello. My first event emit" });
+  }, []);
 
   return (
     <div className="">

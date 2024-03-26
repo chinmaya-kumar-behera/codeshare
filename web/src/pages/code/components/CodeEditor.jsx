@@ -1,32 +1,21 @@
 import Editor from "@monaco-editor/react";
 import React, { useEffect, useState } from "react";
 import URLHandler from "../../../handlers/URLHandler";
+import useDebounce from "../../../hooks/useDebounce";
 
 const CodeEditor = ({ editorConfig, code, setCode, id }) => {
   const { createCodeHandler } = URLHandler();
 
   const onChange = (value) => {
     setCode(value);
-    delayedCodeHandler();
+    uploadCode();
   };
 
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return (...args) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  };
-
-  const delayedCodeHandler = debounce(() => {
-    createCodeHandler({ id, code, setting: editorConfig });
-  }, 3000);
-
-  useEffect(() => {
-    return delayedCodeHandler.cancel; // Cleanup the debounce timer
-  }, []); // Runs only once on component mount
+  const uploadCode = useDebounce(() => {
+    createCodeHandler({ id, code, setting: editorConfig }).then((res) =>
+      console.log(res.data)
+    );
+  }, 2000);
 
   return (
     <div className="editor-container">

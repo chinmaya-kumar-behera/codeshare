@@ -9,6 +9,11 @@ Router.get('/', (req, res) => {
 })
 
 Router.get("/:id", getCode);
+Router.post("/", async(req, res) => {
+    console.log("hello sir i am chinmaya kumar behera")
+    console.log(req.body)
+    res.send({data:req.body});
+});
 Router.post("/:id", createCode);
 
 module.exports = Router

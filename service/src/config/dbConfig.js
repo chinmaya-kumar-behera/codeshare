@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
-const url =
-  "mongodb+srv://chinu2127:Intr%40Psd326@cluster0.yytjihl.mongodb.net/codeshare?retryWrites=true&w=majority";
 function connectToDatabase() {
-  mongoose.connect(url, {
+  mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

@@ -5,7 +5,9 @@ export const getCodeService = (id) => {
 };
 
 export const createCodeService = (data) => {
-    console.log(data)
-    const { id, code } = data;
-  return axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/${id}`,);
+  console.log(data);
+  return axios.post(
+    `${process.env.REACT_APP_BACKEND_BASE_URL}/${data.id}`,
+    data
+  );
 };
