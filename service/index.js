@@ -8,16 +8,13 @@ const Router = require("./src/router/router");
 const dotenv = require("dotenv");
 
 dotenv.config();
-
 const app = express();
 app.use(express.json());
-
-console.log();
-
 connectToDatabase();
 app.use(cors({ origin: [process.env.WEB_BASE_URL] }));
-
 app.use("/", Router);
+
+
 
 const server = http.createServer(app);
 
@@ -28,11 +25,19 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  console.log(`A user connected : ${socket.id}`);
 
-  // socket.on('initialEmit', (msg) => {
-  //   console.log(msg)
-  // })
+  socket.on("joinRoom", (roomName) => {
+    socket.join(roomName);
+    io.to(roomName).emit("roomJoined", `You joined room : ${roomName}`);
+  });
+  
+  socket.on('codeShare', (roomName, data) => {
+    // console.log('code share  :' + roomName, data);
+    // io.to(roomName).emit("newCode", data);
+    // socket.to(roomName).broadcast.emit("newCode", data);
+    socket.broadcast.to(roomName).emit("newCode", data);
+  })
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");

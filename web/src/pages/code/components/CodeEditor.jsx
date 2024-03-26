@@ -1,7 +1,8 @@
 import Editor from "@monaco-editor/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import URLHandler from "../../../handlers/URLHandler";
 import useDebounce from "../../../hooks/useDebounce";
+import { socket } from "../../../config/socket";
 
 const CodeEditor = ({ editorConfig, code, setCode, id }) => {
   const { createCodeHandler } = URLHandler();
@@ -12,9 +13,8 @@ const CodeEditor = ({ editorConfig, code, setCode, id }) => {
   };
 
   const uploadCode = useDebounce(() => {
-    createCodeHandler({ id, code, setting: editorConfig }).then((res) =>
-      console.log(res.data)
-    );
+    createCodeHandler({ id, code, setting: editorConfig }).then((res) => {});
+    socket.emit("codeShare", id, { setting: editorConfig, code });
   }, 2000);
 
   return (

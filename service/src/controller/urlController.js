@@ -4,7 +4,7 @@ const getCode = async (req, res) => {
   try {
     const { id } = req.params;
     const isAvailable = await anoCodes.findOne({ url: id });
-    res.status(200).json({ data: isAvailable });
+    res.json({ data: isAvailable });
   } catch (error) {
     console.error("Error in getCode:", error);
     res.status(500).json({ error: "Internal Server Error" });

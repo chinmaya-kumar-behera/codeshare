@@ -7,26 +7,52 @@ import URLHandler from "../../handlers/URLHandler";
 import { socket } from "../../config/socket";
 
 function Code() {
-  
   const param = useParams();
   const { id } = param;
   const { getCodeHandler } = URLHandler();
 
-  const [code, setCode] = useState( "var message = 'Monaco Editor!'\nconsole.log(message);");
-  const [editorConfig, setEditConfig] = useState({
+  const defaultValue = {
+    code: "var message = 'Monaco Editor!'\nconsole.log(message);",
     language: "javascript",
     fontSize: 16,
+  };
+
+  const [code, setCode] = useState(defaultValue.code);
+  const [editorConfig, setEditConfig] = useState({
+    language: defaultValue.language,
+    fontSize: defaultValue.fontSize,
   });
 
-  // useEffect(() => {
-  //   getCodeHandler(id)
-  //     .then((res) => {console.log(res)})
-  //     .catch((err) => console.log(err));
-  // },[id])
+  useEffect(() => {
+    getCodeHandler(id)
+      .then((data) => updateEditorValue(data.data.data))
+      .catch((err) => console.log(err));
+  },[id])
+
+  function updateEditorValue(data) {
+    if (data) {
+      const { code, setting } = data;
+      setCode(code);
+      setEditConfig({ ...setting });
+    }
+  }
 
   useEffect(() => {
-    console.log("code useEffect called");
-    socket.emit("initialEmit", { msg: "Hello. My first event emit" });
+    socket.emit("joinRoom", id);
+
+    socket.on('roomJoined', (msg) => {
+      console.log(msg)
+    })
+
+    socket.on("newCode", (data) => {
+      updateEditorValue(data)
+    });
+
+    return () => {
+      socket.off("roomJoined");
+      socket.off("newCode");
+    }
+    
   }, []);
 
   return (
