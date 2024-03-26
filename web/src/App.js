@@ -4,10 +4,10 @@ import Code from "./pages/code/Code";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/:id" element={<Code />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<Code />} />
+      </Routes>
   );
 }
 

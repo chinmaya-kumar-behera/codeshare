@@ -1,6 +1,11 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const onBtnClick = () => {
+    navigate("/hsyx-ehd-vhf")
+  }
   return (
     <main className="w-full h-auto bg-gradient-to-b from-[#38343c] to-[#4d77bb]">
       {/* //navbar */}
@@ -30,7 +35,10 @@ const Home = () => {
           </h5>
         </div>
         <div className="flex flex-col gap-6 justify-center items-center">
-          <button className="px-10 py-4 bg-[#ec3360] text-center hover:bg-[#eb1d4e] rounded text-white">
+          <button
+            className="px-10 py-4 bg-[#ec3360] text-center hover:bg-[#eb1d4e] rounded text-white"
+            onClick={onBtnClick}
+          >
             Share Code Now
           </button>
           <span>Share code for free</span>

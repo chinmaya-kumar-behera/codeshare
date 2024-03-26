@@ -1,60 +1,45 @@
-// import Editor from "@monaco-editor/react";
-// import React from "react";
-
-// const CodeEditor = () => {
-//   const code = "var message = 'Monaco Editor!'\nconsole.log(message);";
-
-//   const onChangeHandler = (newValue) => {
-//     console.log(newValue);
-//   };
-
-//   return (
-//     <div className="w-full">
-//       <div className="editor-container">
-//         <Editor
-//           height="92vh"
-//           language="javascript"
-//           theme="vs-dark"
-//           value={code}
-//           onChange={onChangeHandler}
-//           options={{
-//             inlineSuggest: true,
-//             fontSize: "16px",
-//             formatOnType: true,
-//             autoClosingBrackets: true,
-//             minimap: { scale: 10 },
-//           }}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CodeEditor;
-
 import Editor from "@monaco-editor/react";
-import React from "react";
-import SettingBar from "./SettingBar";
+import React, { useEffect, useState } from "react";
+import URLHandler from "../../../handlers/URLHandler";
 
-const CodeEditor = () => {
-  const code = "var message = 'Monaco Editor!'\nconsole.log(message);";
+const CodeEditor = ({ editorConfig, code, setCode, id }) => {
+  const { createCodeHandler } = URLHandler();
 
-  const onChangeHandler = (newValue) => {
-    console.log(newValue);
+  const onChange = (value) => {
+    setCode(value);
+    delayedCodeHandler();
   };
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const delayedCodeHandler = debounce(() => {
+    createCodeHandler({ id, code, setting: editorConfig });
+  }, 3000);
+
+  useEffect(() => {
+    return delayedCodeHandler.cancel; // Cleanup the debounce timer
+  }, []); // Runs only once on component mount
 
   return (
     <div className="editor-container">
       <Editor
         className="no-scrollbar"
         height="93vh"
-        language="javascript"
+        language={editorConfig.language}
         theme="vs-dark"
         value={code}
-        onChange={onChangeHandler}
+        onChange={onChange}
         options={{
           inlineSuggest: true,
-          fontSize: "16px",
+          fontSize: editorConfig.fontSize + "px",
           formatOnType: true,
           autoClosingBrackets: true,
           minimap: { enabled: false },
