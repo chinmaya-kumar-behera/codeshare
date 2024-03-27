@@ -3,8 +3,13 @@ import { createCodeService, getCodeService } from '../services/urlService';
 
 const URLHandler = () => {
 
-    const getCodeHandler = (id) => {
-        return getCodeService(id);
+  const getCodeHandler = (id) => {
+    try {  
+      return getCodeService(id);
+    }
+    catch (err) {
+      console.log(err);
+    }
     }
 
     const createCodeHandler = (data) => {

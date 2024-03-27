@@ -22,22 +22,28 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Settings</h2>
         <button onClick={toggle}>
-          <RxCross1 />
+          <RxCross1 className="" />
         </button>
       </div>
       <div className="mt-5 space-y-5">
         <div className="">
-          <label className="block mb-2 text-sm font-semibold text-gray-600">
+          <label className="block mb-2 text-sm font-semibold text-gray-400">
             Select Language
           </label>
           <select
             name="language"
             onChange={onChangeHandler}
             value={editorConfig.language}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#eb1d4e] focus:border-[#eb1d4e] block w-full p-2.5  "
+            className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
           >
             {Languages.map((el) => (
-              <option key={el.value} value={el.value}>
+              <option
+                className={`${
+                  editorConfig.language == el.value && "text-[#ec3360]"
+                }`}
+                key={el.value}
+                value={el.value}
+              >
                 {el.name}
               </option>
             ))}
@@ -45,17 +51,23 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
         </div>
 
         <div className="">
-          <label className="block mb-2 text-sm font-semibold text-gray-600">
+          <label className="block mb-2 text-sm font-semibold text-gray-400">
             Select Font Size
           </label>
           <select
             name="fontSize"
             onChange={onChangeHandler}
             value={editorConfig.fontSize}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#eb1d4e] focus:border-[#eb1d4e] block w-full p-2.5  "
+            className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
           >
             {fontSizes.map((el) => (
-              <option key={el} value={el}>
+              <option
+                className={`${
+                  editorConfig.fontSize == el && "text-[#ec3360]"
+                }`}
+                key={el}
+                value={el}
+              >
                 {el}
               </option>
             ))}

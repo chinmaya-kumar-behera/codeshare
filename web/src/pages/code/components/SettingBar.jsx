@@ -27,13 +27,13 @@ const SettingBar = ({ setEditConfig, editorConfig }) => {
   }, []);
 
   return (
-    <div className="absolute top-[1px] right-2 h-full z-10 text-gray-400">
+    <div className="absolute top-[1px] right-2 h-full z-10 text-gray-300">
       <div className="relative w-full h-full">
         <aside
           ref={asideRef}
-          className={`absolute top-[1px] h-full right-0 transition-all ${
-            aside ? "w-[300px]" : "w-0"
-          } bg-white`}
+          className={`fixed top-[1px] w-[350px] right-0 h-full transition-all border border-gray-600 shadow-md rounded  ${
+            aside ? "translate-x-0" : "translate-x-[350px]"
+          } bg-[#31353f]`}
         >
           <Settings
             toggle={toggleAside}
