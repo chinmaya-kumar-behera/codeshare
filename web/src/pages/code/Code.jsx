@@ -10,7 +10,6 @@ function Code() {
   const param = useParams();
   const { id } = param;
   const { getCodeHandler } = URLHandler();
-  console.log(id)
 
   const defaultValue = {
     code: "var message = 'Monaco Editor!'\nconsole.log(message);",
@@ -33,7 +32,6 @@ function Code() {
   }
 
   useEffect(() => {
-    console.log("useEffeect caled")
     getCodeHandler(id)
       .then((data) => updateEditorValue(data.data.data))
       .catch((err) => console.log(err));
@@ -53,10 +51,11 @@ function Code() {
     socket.emit("joinRoom", id);
 
     socket.on('roomJoined', (msg) => {
-      console.log(msg)
+      console.log("roomJoined",msg)
     })
 
     socket.on("newCode", (data) => {
+      console.log("newCode",data)
       updateEditorValue(data)
     });
 

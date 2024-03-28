@@ -28,6 +28,7 @@ io.on("connection", (socket) => {
   console.log(`A user connected : ${socket.id}`);
 
   socket.on("joinRoom", (roomName) => {
+    console.log("joinRoom event");
     socket.join(roomName);
     io.to(roomName).emit("roomJoined", `You joined room : ${roomName}`);
   });
@@ -36,6 +37,7 @@ io.on("connection", (socket) => {
     // console.log('code share  :' + roomName, data);
     // io.to(roomName).emit("newCode", data);
     // socket.to(roomName).broadcast.emit("newCode", data);
+    console.log("codeShare event")
     socket.broadcast.to(roomName).emit("newCode", data);
   })
 
