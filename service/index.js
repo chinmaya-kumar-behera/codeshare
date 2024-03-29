@@ -21,7 +21,6 @@ const io = new Server(server, {
     origin: process.env.WEB_BASE_URL,
   },
 });
-io.origins("*:*");
 
 io.on("connection", (socket) => {
   console.log(`A user connected : ${socket.id}`);
