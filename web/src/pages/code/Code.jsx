@@ -4,7 +4,8 @@ import SettingBar from "./components/SettingBar";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import URLHandler from "../../handlers/URLHandler";
-import { socket } from "../../config/socket";
+import initializeSocket from "../../Sockets/socket";
+// import { socket } from "../../config/socket";
 
 function Code() {
   const param = useParams();
@@ -47,7 +48,11 @@ function Code() {
     }
   }
 
+  const authData = {}
+
   useEffect(() => {
+    const socket = initializeSocket(authData.user);
+
     socket.emit("joinRoom", id);
 
     socket.on('roomJoined', (msg) => {
