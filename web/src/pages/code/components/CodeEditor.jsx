@@ -1,5 +1,5 @@
 import Editor from "@monaco-editor/react";
-import React, { useEffect } from "react";
+import React from "react";
 import URLHandler from "../../../handlers/URLHandler";
 import useDebounce from "../../../hooks/useDebounce";
 import { socket } from "../../../config/socket";
@@ -8,7 +8,6 @@ const CodeEditor = ({ editorConfig, code, setCode, id }) => {
   const { createCodeHandler } = URLHandler();
 
   const onChange = (value) => {
-    console.log("onchange called")
     setCode(value);
     uploadCode(value, id, editorConfig);
   };
