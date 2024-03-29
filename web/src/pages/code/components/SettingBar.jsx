@@ -5,7 +5,7 @@ import Settings from "./Settings";
 import NavigationHandler from "../../../handlers/NavigationHandler";
 
 const SettingBar = ({ setEditConfig, editorConfig, code }) => {
-  const { navigateToNewUrl } = NavigationHandler();
+  const { navigateToNewUrl, generateRandomString } = NavigationHandler();
   const [aside, setAside] = useState(false);
   const asideRef = useRef(null);
 
@@ -45,8 +45,11 @@ const SettingBar = ({ setEditConfig, editorConfig, code }) => {
   };
 
   const newPageHandler = () => {
-    window.location.reload();
-    window.open(process.env.REACT_APP_BASE_WEB_URL, "_blank");
+    // window.location.reload();
+    window.open(
+      process.env.REACT_APP_BASE_WEB_URL + "/" + generateRandomString(),
+      "_blank"
+    );
     navigateToNewUrl();
   }
 

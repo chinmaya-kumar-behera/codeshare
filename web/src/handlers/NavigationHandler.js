@@ -20,7 +20,7 @@ const NavigationHandler = () => {
     navigate(`/${uniqueString}`);
   };
 
-  return { navigateToNewUrl };
+  return { navigateToNewUrl, generateRandomString };
 };
 
 export default NavigationHandler;
