@@ -45,13 +45,13 @@ const SettingBar = ({ setEditConfig, editorConfig, code }) => {
   };
 
   const newPageHandler = () => {
-    // window.location.reload();
     window.open(
       process.env.REACT_APP_BASE_WEB_URL + "/" + generateRandomString(),
       "_blank"
     );
     navigateToNewUrl();
   }
+
 
 
   return (
