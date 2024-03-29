@@ -14,8 +14,6 @@ connectToDatabase();
 app.use(cors({ origin: [process.env.WEB_BASE_URL] }));
 app.use("/", Router);
 
-
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
