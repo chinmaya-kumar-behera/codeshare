@@ -47,13 +47,14 @@ To run this project locally, follow these steps:
    Step 1: Move to the web directory
 
    ```bash
-   cd web ```
+   cd web
+   ```
 
         
    Step 2: Install the Node modules
-
+   ```bash
       - npm install
-   
+   ```
   
    Step 3: Set Environmental Variables
      - Add the following environment variables in the web directory:
@@ -70,13 +71,14 @@ To run this project locally, follow these steps:
    # Steps to Run the Node Server
    
    Step 1: Move to the service directory
-
+   ```bash
       cd ../service
+   ```
 
    Step 2: Install the Node modules
-
+   ```bash
       npm install
-
+   ```
    Step 3: Set the environmental variables
 
       MONGO_URL = your mongodb url ( local or remote )
@@ -84,9 +86,9 @@ To run this project locally, follow these steps:
       WEB_BASE_URL = http://localhost:3000
 
    Step 4: Start the Server
-
+   ```bash
       npm start
-
+   ```
    And your CodeSHare Web app is ready to rock.
 
 
