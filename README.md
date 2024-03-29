@@ -45,8 +45,10 @@ To run this project locally, follow these steps:
    #Steps to Run the React Web Application
    
    Step 1: Move to the web directory
-   
-      - cd web
+
+   ```bash
+   cd web ```
+
         
    Step 2: Install the Node modules
 
