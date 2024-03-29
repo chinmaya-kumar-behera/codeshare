@@ -11,6 +11,7 @@ This project is a clone of the popular CodeShare website, allowing users to coll
 ## Features
 
 - Real-time code collaboration.
+- Download the codes as text file.
 - Syntax highlighting for various programming languages. (like JavaScript and Python)
 - Code sharing with unique URLs.
 - Responsive design for mobile and desktop devices.
