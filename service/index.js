@@ -34,9 +34,6 @@ io.on("connection", (socket) => {
   });
   
   socket.on('codeShare', (roomName, data) => {
-    // console.log('code share  :' + roomName, data);
-    // io.to(roomName).emit("newCode", data);
-    // socket.to(roomName).broadcast.emit("newCode", data);
     console.log("codeShare event")
     socket.broadcast.to(roomName).emit("newCode", data);
   })

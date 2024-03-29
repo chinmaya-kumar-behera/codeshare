@@ -12,7 +12,7 @@ function Code() {
   const { getCodeHandler } = URLHandler();
 
   const defaultValue = {
-    code: "var message = 'Monaco Editor!'\nconsole.log(message);",
+    code: "console.log('Hello World');",
     language: "javascript",
     fontSize: 16,
   };
