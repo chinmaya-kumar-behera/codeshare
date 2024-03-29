@@ -8,10 +8,10 @@ This project is a clone of the popular CodeShare website, allowing users to coll
 
 ## Features
 
-- Real-time code collaboration
-- Syntax highlighting for various programming languages (like JavaScript and Python)
-- Code sharing with unique URLs
-- Responsive design for mobile and desktop devices
+- Real-time code collaboration.
+- Syntax highlighting for various programming languages. (like JavaScript and Python)
+- Code sharing with unique URLs.
+- Responsive design for mobile and desktop devices.
 
 ## Technologies Used
 
@@ -34,26 +34,61 @@ To run this project locally, follow these steps:
 
    ```
 
-   project folder consist of two folders.
+   This project folder consists of two folders:
 
-      - web      :- for react application
-      - service  :- For managing node server
-  
-   Open both folder directory in different terminal
+      web: For the React application.
+      service: For managing the Node server.
+   
+   
+   Open both folder directories in different terminals.
+   
+   #Steps to Run the React Web Application
+   
+   Step 1: Move to the web directory
+   
+      - cd web
+        
+   Step 2: Install the Node modules
 
-   step to run the web server
-   1. #install the node modules using command "npm i" or "npm install"
+      - npm install
+   
   
-   2. #Add environmental variable
-      add this below two dependancy variable in the web directory
+   Step 3: Set Environmental Variables
+     - Add the following environment variables in the web directory:
       
-         REACT_APP_BACKEND_BASE_URL = http://localhost:5000
-         REACT_APP_BASE_WEB_URL = http://localhost:3000
+      REACT_APP_BACKEND_BASE_URL = http://localhost:5000
+      REACT_APP_BASE_WEB_URL = http://localhost:3000
 
-         and change the urls in case you are deploying on any server
+        note : change the urls in case you are deploying on any server
 
    2. #Start the server
       - To start the server run command "npm start"
+     
+   
+   # Steps to Run the Node Server
+   
+   Step 1: Move to the service directory
+
+      cd ../service
+
+   Step 2: Install the Node modules
+
+      npm install
+
+   Step 3: Set the environmental variables
+
+      MONGO_URL = your mongodb url ( local or remote )
+      PORT = 5000
+      WEB_BASE_URL = http://localhost:3000
+
+   Step 4: Start the Server
+
+      npm start
+
+   And your CodeSHare Web app is ready to rock.
+
+
+   
    
 
    
