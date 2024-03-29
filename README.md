@@ -27,7 +27,7 @@ This project is a clone of the popular CodeShare website, allowing users to coll
 
 To run this project locally, follow these steps:
 
-1. Clone the repository:
+Clone the repository:
 
    ```bash
    git clone https://github.com/your-username/codeshare-clone.git
@@ -42,7 +42,7 @@ To run this project locally, follow these steps:
    
    Open both folder directories in different terminals.
    
-   #Steps to Run the React Web Application
+#Steps to Run the React Web Application
    
    Step 1: Move to the web directory
 
@@ -64,11 +64,11 @@ To run this project locally, follow these steps:
 
         note : change the urls in case you are deploying on any server
 
-   2. #Start the server
+   2. Start the server
       - To start the server run command "npm start"
      
    
-   # Steps to Run the Node Server
+# Steps to Run the Node Server
    
    Step 1: Move to the service directory
    ```bash
