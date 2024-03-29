@@ -1,24 +1,32 @@
 import React, { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import Dialog from "../../../components/UI/Dialog";
-import {
-  FaFacebookF,
-  FaGithub,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaFacebookF, FaWhatsapp } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const CodeShareModal = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const { id } = useParams();
+
+  const PAGE_URL = `${process.env.REACT_APP_BASE_WEB_URL}/${id}/`
 
   const handleCopy = () => {
     setCopied(true);
+    navigator.clipboard.write(PAGE_URL);
     setTimeout(() => setCopied(false), 2000);
   };
   
   const iconStyle = `p-3 bg-gray-100 bg-opacity-10 text-white rounded-full cursor-pointer hover:text-[#ec3360] transition-all duration-300`;
 
+  function shareOnFacebook() {
+    const url = encodeURIComponent(
+      `${process.env.REACT_APP_BASE_WEB_URL}/${id}/`
+    );
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      "_blank"
+    );
+  }
 
   return (
     <Dialog
@@ -49,7 +57,7 @@ const CodeShareModal = ({ isOpen, onClose }) => {
               id="url"
               readOnly
               value="https://codeshare.io/J778KZ"
-              className="w-full lg:w-2/3 p-3 rounded border border-gray-400 text-lg text-black"
+              className="w-full lg:w-2/3 p-3 rounded text-lg text-gray-200 bg-gray-900 bg-opacity-70"
             />
             <button className="btn btn-icon" onClick={handleCopy}>
               <IoCopyOutline className="text-2xl text-[#ec3360]" />
@@ -67,25 +75,16 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           <label className="">Share Via</label>
           <div className="flex gap-2 items-center justify-center lg:justify-start">
             <button className={iconStyle}>
-              <FaLinkedinIn />
-            </button>
-            <button className={iconStyle}>
-              <FaGithub />
-            </button>
-            <button className={iconStyle}>
-              <FaInstagram />
-            </button>
-            <button className={iconStyle}>
-              <FaFacebookF />
+              <FaFacebookF onClick={shareOnFacebook} />
             </button>
 
             <a
-              href="https://api.whatsapp.com/send?text=Check%20out%20this%20codeshare:%20https://codeshare.io/"
+              href={`https://api.whatsapp.com/send?text=Check%20out%20this%20codeshare:%20${PAGE_URL}/`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <button className={iconStyle}>
-                <FaTwitter />
+                <FaWhatsapp />
               </button>
             </a>
           </div>
