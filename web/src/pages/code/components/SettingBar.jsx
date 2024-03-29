@@ -4,7 +4,7 @@ import { FaDownload, FaPlus } from "react-icons/fa6";
 import Settings from "./Settings";
 import NavigationHandler from "../../../handlers/NavigationHandler";
 
-const SettingBar = ({ setEditConfig, editorConfig }) => {
+const SettingBar = ({ setEditConfig, editorConfig, code }) => {
   const { navigateToNewUrl } = NavigationHandler();
   const [aside, setAside] = useState(false);
   const asideRef = useRef(null);
@@ -25,6 +25,31 @@ const SettingBar = ({ setEditConfig, editorConfig }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+
+  const downloadCodeHandler = () => {
+    const codeContent = code;
+
+    const blob = new Blob([codeContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "code.txt";
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const newPageHandler = () => {
+    window.location.reload();
+    window.open(process.env.REACT_APP_BASE_WEB_URL, "_blank");
+    navigateToNewUrl();
+  }
+
 
   return (
     <div className="absolute top-[1px] right-2 h-full z-10 text-gray-300">
@@ -48,14 +73,14 @@ const SettingBar = ({ setEditConfig, editorConfig }) => {
           >
             <IoSettingsSharp className="text-xl group-hover:text-white transition-all" />
           </div>
-          <div className="p-4 bg-[#31353f] group">
+          <div className="p-4 bg-[#31353f] group" onClick={downloadCodeHandler}>
             <FaDownload className="text-xl group-hover:text-white transition-all" />
           </div>
 
-          <div className="p-4 bg-[#31353f] group">
+          <div className="p-4 bg-[#31353f] group" onClick={newPageHandler}>
             <FaPlus
               className="text-xl group-hover:text-white transition-all"
-              onClick={navigateToNewUrl}
+              // onClick={navigateToNewUrl}
             />
           </div>
           <div className="bg-[#31353f] w-full h-full"></div>

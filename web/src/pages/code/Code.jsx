@@ -73,8 +73,14 @@ function Code() {
           <SettingBar
             setEditConfig={setEditConfig}
             editorConfig={editorConfig}
+            code={code}
           />
-          <CodeEditor editorConfig={editorConfig} code={code} setCode={setCode} id={id} />
+          <CodeEditor
+            editorConfig={editorConfig}
+            code={code}
+            setCode={setCode}
+            id={id}
+          />
         </div>
       </div>
     </div>
