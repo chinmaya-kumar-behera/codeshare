@@ -39,10 +39,9 @@ Clone the repository:
       web: For the React application.
       service: For managing the Node server.
    
-   
    Open both folder directories in different terminals.
    
-#Steps to Run the React Web Application
+# Steps to Run the React Web Application
    
    Step 1: Move to the web directory
 
@@ -67,6 +66,7 @@ Clone the repository:
    2. Start the server
       - To start the server run command "npm start"
      
+
    
 # Steps to Run the Node Server
    
@@ -89,7 +89,7 @@ Clone the repository:
    ```bash
       npm start
    ```
-   And your CodeSHare Web app is ready to rock.
+   And that's all.  Now your CodeShare Web-App is ready. ( Happy Coding )
 
 
    
