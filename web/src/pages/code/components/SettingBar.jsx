@@ -55,7 +55,7 @@ const SettingBar = ({ setEditConfig, editorConfig, code }) => {
 
 
   return (
-    <div className="absolute top-[1px] right-2 h-full z-10 text-gray-300">
+    <div className="absolute top-[1px] right-0 lg:right-2 h-full z-10 text-gray-300">
       <div className="relative w-full h-full">
         <aside
           ref={asideRef}
