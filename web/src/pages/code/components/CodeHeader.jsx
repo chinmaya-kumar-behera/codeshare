@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "../../../components/UI/Dialog";
-import { IoLogoWhatsapp, IoLogoFacebook, IoLogoTwitter } from "react-icons/io5";
-
+import CodeShareModal from "./CodeShareModal";
 
 const CodeHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,8 +35,7 @@ const CodeHeader = () => {
           Log In
         </button>
       </div>
-<CodeShareModal isOpen={isOpen} onClose={closeDialog}/>
-     
+      <CodeShareModal isOpen={isOpen} onClose={closeDialog} />
     </header>
   );
 };
