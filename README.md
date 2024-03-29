@@ -1,5 +1,3 @@
-# codeshare
-
 
 # CodeShare Website Clone
 
@@ -11,7 +9,7 @@ This project is a clone of the popular CodeShare website, allowing users to coll
 ## Features
 
 - Real-time code collaboration
-- Syntax highlighting for various programming languages
+- Syntax highlighting for various programming languages (like JavaScript and Python)
 - Code sharing with unique URLs
 - Responsive design for mobile and desktop devices
 
@@ -33,3 +31,38 @@ To run this project locally, follow these steps:
 
    ```bash
    git clone https://github.com/your-username/codeshare-clone.git
+
+   ```
+
+   project folder consist of two folders.
+
+      - web      :- for react application
+      - service  :- For managing node server
+  
+   Open both folder directory in different terminal
+
+   step to run the web server
+   1. #install the node modules using command "npm i" or "npm install"
+  
+   2. #Add environmental variable
+      add this below two dependancy variable in the web directory
+      
+         REACT_APP_BACKEND_BASE_URL = http://localhost:5000
+         REACT_APP_BASE_WEB_URL = http://localhost:3000
+
+         and change the urls in case you are deploying on any server
+
+   2. #Start the server
+      - To start the server run command "npm start"
+   
+
+   
+   
+
+
+
+
+
+
+
+   
