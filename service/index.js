@@ -81,7 +81,6 @@ initSocket(server);
 
 app.use("/", AppRouter);  
 
-
 app.use((req, res, next) => {
   const error = new Error("Path not found.");
   error.status = 404;

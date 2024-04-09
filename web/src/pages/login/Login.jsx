@@ -11,21 +11,20 @@ const Login = () => {
 
     function onSubmitHandler(event) {
         event.preventDefault();
-
         console.log(loginData);
     }
 
 
     return (
-      <main classNameName="">
+      <main className="">
         <Header />
-        <div classNameName="">
+        <div className="">
           <div className="container">
             <h1 className="is-title">Log in to access your saved code</h1>
             <div className="login-form-container">
               <form className="full-width" onSubmit={onSubmitHandler}>
                 <div className="form-field">
-                  <label for="email">Email address</label>
+                  <label>Email address</label>
                   <input
                     name="email"
                     id="email"
@@ -38,7 +37,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="form-field">
-                  <label for="password">Password</label>
+                  <label>Password</label>
                   <input
                     name="password"
                     id="password"

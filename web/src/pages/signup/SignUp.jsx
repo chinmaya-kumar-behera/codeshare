@@ -1,29 +1,34 @@
 import React from "react";
 import Header from "../../views/Header";
+import UserHandler from "../../handlers/UserHandler";
+import Loader from "../../components/UI/Loader"
 
 const SignUp = () => {
+  const { onSubmitHandler, onSignupChange, signUpData } = UserHandler();
+
   return (
     <React.Fragment>
       <Header />
       <div className="container">
         <h1 className="is-title">Sign up to save code</h1>
         <div className="login-form-container">
-          <form className="full-width">
+          <form className="full-width" onSubmit={onSubmitHandler}>
             <div className="form-field">
-              <label for="name">Your full name</label>
+              <label>Your full name</label>
               <input
                 type="text"
                 name="name"
                 id="name"
                 label="Your full name"
-                autofocus=""
+                autoFocus=""
                 autoComplete="name"
                 required=""
-                value=""
+                value={signUpData.name}
+                onChange={onSignupChange}
               />
             </div>
             <div className="form-field">
-              <label for="email">Email address</label>
+              <label>Email address</label>
               <input
                 type="email"
                 name="email"
@@ -31,11 +36,12 @@ const SignUp = () => {
                 label="Email address"
                 autoComplete="email"
                 required=""
-                value=""
+                value={signUpData.email}
+                onChange={onSignupChange}
               />
             </div>
             <div className="form-field">
-              <label for="password">Password</label>
+              <label>Password</label>
               <input
                 type="password"
                 name="password"
@@ -43,15 +49,18 @@ const SignUp = () => {
                 label="Password"
                 autoComplete="new-password"
                 required=""
-                value=""
+                value={signUpData.password}
+                onChange={onSignupChange}
               />
             </div>
-            <span className="text-success"></span>
-            <span id="error">Error: </span>
-            <button className="btn btn-primary" type="submit">
-              Sign Up
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={signUpData.loading}
+            >
+            {signUpData.loading  ? <Loader size="lg"/> : "Sign Up"}
             </button>
-          </form>
+          </form> 
           <p className="aligncenter">
             Already signed up? <a href="/login">Log in here</a>.
           </p>

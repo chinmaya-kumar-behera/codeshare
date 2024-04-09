@@ -40,12 +40,13 @@ const CodeHeader = () => {
         >
           Share
         </button>
-        <button
-          onClick={onFeatureComming}
-          className="hidden md:block px-4 py-2 bg-gray-800 text-center rounded hover:text-[#eb1d4e] hover:bg-white text-white border border-white transition-all bg-opacity-50 text-sm"
-        >
-          Log In
-        </button>
+        <a href="/login">
+          <button
+            className="hidden md:block px-4 py-2 bg-gray-800 text-center rounded hover:text-[#eb1d4e] hover:bg-white text-white border border-white transition-all bg-opacity-50 text-sm"
+          >
+            Log In
+          </button>
+        </a>
       </div>
       <CodeShareModal isOpen={isOpen} onClose={closeDialog} />
 
