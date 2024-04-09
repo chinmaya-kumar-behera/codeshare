@@ -4,7 +4,7 @@ import UserHandler from "../../handlers/UserHandler";
 import Loader from "../../components/UI/Loader"
 
 const SignUp = () => {
-  const { onSubmitHandler, onSignupChange, signUpData } = UserHandler();
+  const { signUpFormSubmitHandler, onSignupChange, signUpData } = UserHandler();
 
   return (
     <React.Fragment>
@@ -12,7 +12,7 @@ const SignUp = () => {
       <div className="container">
         <h1 className="is-title">Sign up to save code</h1>
         <div className="login-form-container">
-          <form className="full-width" onSubmit={onSubmitHandler}>
+          <form className="full-width" onSubmit={signUpFormSubmitHandler}>
             <div className="form-field">
               <label>Your full name</label>
               <input

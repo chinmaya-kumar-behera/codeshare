@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Header from '../../views/Header';
+import UserHandler from '../../handlers/UserHandler';
+import Loader from '../../components/UI/Loader';
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({ email: "", password: "" });
 
-    const onChange= event => {
-        const { name, value } = event.target;
-        setLoginData((prev) => ({ ...prev, [name]: value }));
-    }
-
-    function onSubmitHandler(event) {
-        event.preventDefault();
-        console.log(loginData);
-    }
-
+  const { onLogInFormSubmit, onLoginChange, loginData } = UserHandler();
 
     return (
       <main className="">
@@ -22,7 +14,7 @@ const Login = () => {
           <div className="container">
             <h1 className="is-title">Log in to access your saved code</h1>
             <div className="login-form-container">
-              <form className="full-width" onSubmit={onSubmitHandler}>
+              <form className="full-width" onSubmit={onLogInFormSubmit}>
                 <div className="form-field">
                   <label>Email address</label>
                   <input
@@ -33,7 +25,7 @@ const Login = () => {
                     autoComplete="email"
                     required=""
                     value={loginData.email}
-                    onChange={onChange}
+                    onChange={onLoginChange}
                   />
                 </div>
                 <div className="form-field">
@@ -46,13 +38,17 @@ const Login = () => {
                     autoComplete="current-password"
                     required=""
                     value={loginData.password}
-                    onChange={onChange}
+                    onChange={onLoginChange}
                   />
                 </div>
                 {/* <span className="text-success"></span>
                 <span id="error">Error: </span> */}
-                <button className="btn btn-primary" type="submit">
-                  Log in
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  disabled={loginData.loading}
+                >
+                  {loginData.loading ? <Loader size="lg" /> : "LogIn"}
                 </button>
               </form>
               <p className="aligncenter">

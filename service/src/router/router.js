@@ -1,6 +1,6 @@
 const express = require("express");
 const { getCode, createCode } = require("../controller/urlController");
-const { signUp } = require("../controller/userController");
+const { signUp, login } = require("../controller/userController");
 
 
 const AppRouter = express.Router();
@@ -21,7 +21,7 @@ AppRouter.post("/:id", createCode);
 
 // user router
 AppRouter.post("/api/register", signUp);
-AppRouter.post("/api/login", signUp);
+AppRouter.post("/api/login", login);
 AppRouter.get("/api/forgotpassword", signUp);
 
 module.exports = AppRouter;

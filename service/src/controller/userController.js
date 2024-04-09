@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
@@ -30,4 +31,50 @@ const signUp = async (req, res) => {
   }
 };
 
-module.exports = { signUp };
+
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  console.log("login controller");
+
+  try {
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const existingUser = await userModel.findOne({ email });
+
+      console.log(existingUser);
+
+    if (!existingUser) {
+      return res.status(400).json({ message: "Email not found!" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    const payload = {
+      user: {
+        id: existingUser._id,
+        email: existingUser.email,
+      },
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ message: "Login successful", token });
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { signUp, login };
