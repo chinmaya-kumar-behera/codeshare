@@ -1,9 +1,9 @@
-const anoCodes = require("./../models/anoCode");
+const codeModel = require("./../models/codeModel");
 
 const getCode = async (req, res) => {
   try {
     const { id } = req.params;
-    const isAvailable = await anoCodes.findOne({ url: id });
+    const isAvailable = await codeModel.findOne({ url: id });
     res.json({ data: isAvailable });
   } catch (error) {
     console.error("Error in getCode:", error);
@@ -14,10 +14,11 @@ const getCode = async (req, res) => {
 const createCode = async (req, res) => {
   try {
     const { id } = req.params;
-    const { setting, code } = req.body;
+    console.log(req.body)
+    const { setting, code, isEditable } = req.body;
 
     let result;
-    const isAvailable = await anoCodes.findOne({ url: id });
+    const isAvailable = await codeModel.findOne({ url: id });
 
     if (isAvailable) {
       isAvailable.code = code;
@@ -25,7 +26,7 @@ const createCode = async (req, res) => {
       await isAvailable.save();
       result = isAvailable;
     } else {
-      result = await anoCodes.create({ setting, code, url: id });
+      result = await codeModel.create({ setting, code, url: id });
     }
     res.status(200).json({ msg: "code created successfully", data: result });
   } catch (error) {

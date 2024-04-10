@@ -1,5 +1,6 @@
 import React from 'react'
 import NavigationHandler from '../../handlers/NavigationHandler';
+import Profile from '../../views/header/Profile';
 
 const Home = () => {
   const { navigateToNewUrl } = NavigationHandler();
@@ -15,11 +16,7 @@ const Home = () => {
               alt="logo"
             />
           </div>
-          <div className="flex items-center gap-7 text-md text-gray-300">
-            <button>Pricing</button>
-            <button>Sign Up</button>
-            <button>Log In</button>
-          </div>
+          <Profile />
         </div>
       </nav>
 

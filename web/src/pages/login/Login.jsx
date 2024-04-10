@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../../views/Header';
 import UserHandler from '../../handlers/UserHandler';
 import Loader from '../../components/UI/Loader';
+import Header from '../../views/header/Header';
 
 const Login = () => {
 

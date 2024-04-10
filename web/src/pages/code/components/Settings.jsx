@@ -13,9 +13,13 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
-    console.log(value, name);
     setEditConfig((prev) => ({ ...prev, [name]: value }));
   };
+
+  const onCheckChange = (event) => {
+    const { checked } = event.target;
+    setEditConfig((prev) => ({ ...prev, isEditable: !checked }));
+  }
   
   return (
     <div className="p-5">
@@ -62,9 +66,7 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
           >
             {fontSizes.map((el) => (
               <option
-                className={`${
-                  editorConfig.fontSize == el && "text-[#ec3360]"
-                }`}
+                className={`${editorConfig.fontSize == el && "text-[#ec3360]"}`}
                 key={el}
                 value={el}
               >
@@ -72,6 +74,24 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
               </option>
             ))}
           </select>
+        </div>
+        <div class="form-field">
+          <label for="view-only">"View only" mode</label>
+          <label
+            class="switch hint--top"
+            data-hint="Sorry, only registered users can manage permissions."
+          >
+            <input
+              type="checkbox"
+              class="switch-input"
+              onChange={onCheckChange}
+            />
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <span class="switch-handle"></span>
+          </label>
+          <p class="note">
+            Turn on "view only" mode if you dont want others to edit the code
+          </p>
         </div>
       </div>
     </div>

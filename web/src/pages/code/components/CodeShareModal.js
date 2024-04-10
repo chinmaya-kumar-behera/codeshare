@@ -8,14 +8,14 @@ const CodeShareModal = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
   const { id } = useParams();
 
-  const PAGE_URL = `${process.env.REACT_APP_BASE_WEB_URL}/${id}/`
+  const PAGE_URL = `${process.env.REACT_APP_BASE_WEB_URL}/${id}/`;
 
   const handleCopy = () => {
     setCopied(true);
-    navigator.clipboard.write(PAGE_URL);
+    navigator.clipboard.writeText(PAGE_URL);
     setTimeout(() => setCopied(false), 2000);
   };
-  
+
   const iconStyle = `p-3 bg-gray-100 bg-opacity-10 text-white rounded-full cursor-pointer hover:text-[#ec3360] transition-all duration-300`;
 
   function shareOnFacebook() {
@@ -26,6 +26,10 @@ const CodeShareModal = ({ isOpen, onClose }) => {
       `https://www.facebook.com/sharer/sharer.php?u=${url}`,
       "_blank"
     );
+  }
+
+  const onCheckChange = (event) => {
+    console.log(event.target.checked)
   }
 
   return (
@@ -57,7 +61,8 @@ const CodeShareModal = ({ isOpen, onClose }) => {
               id="url"
               readOnly
               value="https://codeshare.io/J778KZ"
-              className="w-full lg:w-2/3 p-3 rounded text-lg text-gray-200 bg-gray-900 bg-opacity-70"
+              className="w-full lg:w-2/3 p-3 rounded text-lg text-gray-900 bg-gray-400 bg-opacity-70"
+              focus={true}
             />
             <button className="btn btn-icon" onClick={handleCopy}>
               <IoCopyOutline className="text-2xl text-[#ec3360]" />
@@ -90,20 +95,18 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* <div>
-          <div className="flex flex-col gap-4">
-            <label className="">"View only" mode</label>
-            <label
-              className="switch hint--top"
-              data-hint="Sorry, only registered users can manage permissions."
-            >
-              <input type="checkbox" className="switch-input" />
-              <span className="switch-label" data-on="On" data-off="Off"></span>
-              <span className="switch-handle"></span>
-            </label>
-          </div>
-          <p className="text-gray-400 mt-3">
-            Turn on "view only" mode if you don't want others to edit the code
+        {/* <div class="form-field">
+          <label for="view-only">"View only" mode</label>
+          <label
+            class="switch hint--top"
+            data-hint="Sorry, only registered users can manage permissions."
+          >
+            <input type="checkbox" class="switch-input" onChange={onCheckChange}/>
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <span class="switch-handle"></span>
+          </label>
+          <p class="note">
+            Turn on "view only" mode if you dont want others to edit the code
           </p>
         </div> */}
 

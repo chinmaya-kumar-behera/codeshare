@@ -9,6 +9,7 @@ const anoCodeSchema = mongoose.Schema({
   code: { type: String },
   deviceToken: { type: String, default: null },
   isEditable: { type: Boolean, default: true },
+  user: { type: mongoose.Types.ObjectId, default: null },
 });
 
-module.exports = mongoose.model("anoCodes", anoCodeSchema);
+module.exports = mongoose.model("codes", anoCodeSchema);

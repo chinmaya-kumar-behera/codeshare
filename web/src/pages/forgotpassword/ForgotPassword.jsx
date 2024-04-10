@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../views/Header";
+import Header from "../../views/header/Header";
 
 const ForgotPassword = () => {
     return (

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import URLHandler from "../../handlers/URLHandler";
 import initializeSocket from "../../Sockets/socket";
-// import { socket } from "../../config/socket";
 
 function Code() {
   const param = useParams();
@@ -44,7 +43,7 @@ function Code() {
       setCode(code);
       setEditConfig({ ...setting });
     } else {
-      editorDefaultValue()
+      editorDefaultValue();
     }
   }
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavigationHandler = () => {
@@ -20,7 +19,11 @@ const NavigationHandler = () => {
     navigate(`/${uniqueString}`);
   };
 
-  return { navigateToNewUrl, generateRandomString };
+  const navigateToCodes = () => {
+    navigate('/codes');
+  }
+
+  return { navigateToNewUrl, generateRandomString, navigateToCodes };
 };
 
 export default NavigationHandler;
