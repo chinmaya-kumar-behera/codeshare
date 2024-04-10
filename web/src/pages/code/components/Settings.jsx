@@ -1,7 +1,11 @@
 import React from 'react'
 import { RxCross1 } from 'react-icons/rx';
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const Settings = ({ toggle, setEditConfig, editorConfig }) => {
+
+  const user = useSelector((state) => state.auth.user);
   const Languages = [
     { name: "JavaScript", value: "javascript" },
     { name: "Python", value: "python" },
@@ -17,8 +21,13 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
   };
 
   const onCheckChange = (event) => {
-    const { checked } = event.target;
-    setEditConfig((prev) => ({ ...prev, isEditable: !checked }));
+    if (user?._id) {
+      const { checked } = event.target;
+      setEditConfig((prev) => ({ ...prev, isEditable: checked }));
+      if (checked) toast.success("Switched to view only mode !");
+    } else {
+      toast.error('Please log in to use this feature !')
+    }
   }
   
   return (
@@ -36,9 +45,11 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
           </label>
           <select
             name="language"
+            hint={`${editorConfig.isEditable && 'Cannot change while redonly mode!'}`}
             onChange={onChangeHandler}
             value={editorConfig.language}
             className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
+            disabled={editorConfig.isEditable}
           >
             {Languages.map((el) => (
               <option
@@ -63,6 +74,7 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
             onChange={onChangeHandler}
             value={editorConfig.fontSize}
             className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
+            disabled={editorConfig.isEditable}
           >
             {fontSizes.map((el) => (
               <option
@@ -85,6 +97,8 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
               type="checkbox"
               class="switch-input"
               onChange={onCheckChange}
+              disabled={editorConfig.isEditable}
+              checked={editorConfig.isEditable}
             />
             <span class="switch-label" data-on="On" data-off="Off"></span>
             <span class="switch-handle"></span>

@@ -20,13 +20,16 @@ const CodeEditor = ({ editorConfig, code, setCode, id }) => {
   return (
     <div className="editor-container">
       <Editor
+        placeholder="hello hii bye"
         className="no-scrollbar"
         height="93vh"
+        readonly={true}
         language={editorConfig.language}
         theme="vs-dark"
         value={code}
         onChange={onChange}
         options={{
+          readOnly: editorConfig.isEditable,
           inlineSuggest: true,
           fontSize: editorConfig.fontSize + "px",
           formatOnType: true,

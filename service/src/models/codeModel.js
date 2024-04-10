@@ -5,10 +5,10 @@ const anoCodeSchema = mongoose.Schema({
   setting: {
     fontSize: { type: Number },
     language: { type: String },
+    isEditable: { type: Boolean, default: true},
   },
   code: { type: String },
   deviceToken: { type: String, default: null },
-  isEditable: { type: Boolean, default: true },
   user: { type: mongoose.Types.ObjectId, default: null },
 });
 

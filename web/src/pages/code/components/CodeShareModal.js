@@ -3,10 +3,12 @@ import { IoCopyOutline } from "react-icons/io5";
 import Dialog from "../../../components/UI/Dialog";
 import { FaFacebookF, FaWhatsapp } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CodeShareModal = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
   const { id } = useParams();
+  const user = useSelector((state) => state.auth.user);
 
   const PAGE_URL = `${process.env.REACT_APP_BASE_WEB_URL}/${id}/`;
 
@@ -95,11 +97,11 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* <div class="form-field">
+        <div class="form-field">
           <label for="view-only">"View only" mode</label>
           <label
             class="switch hint--top"
-            data-hint="Sorry, only registered users can manage permissions."
+            data-hint="Sorry, only logged in users can manage permissions."
           >
             <input type="checkbox" class="switch-input" onChange={onCheckChange}/>
             <span class="switch-label" data-on="On" data-off="Off"></span>
@@ -108,7 +110,7 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           <p class="note">
             Turn on "view only" mode if you dont want others to edit the code
           </p>
-        </div> */}
+        </div>
 
         <div className="mt-5">
           <button className="px-4 py-2 bg-[#ec3360] rounded" onClick={onClose}>

@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import URLHandler from "../../handlers/URLHandler";
 import initializeSocket from "../../Sockets/socket";
+import { useSelector } from "react-redux";
+
 
 function Code() {
   const param = useParams();
   const { id } = param;
   const { getCodeHandler } = URLHandler();
+  const user = useSelector((state) => state.auth.user);
 
   const defaultValue = {
     code: "console.log('Hello World');",
@@ -21,21 +24,26 @@ function Code() {
   const [editorConfig, setEditConfig] = useState({
     language: defaultValue.language,
     fontSize: defaultValue.fontSize,
+    isEditable: false,
   });
 
   const editorDefaultValue = () => {
     setEditConfig({
       language: defaultValue.language,
       fontSize: defaultValue.fontSize,
+      isEditable: false,
     });
     setCode(defaultValue.code);
   }
 
   useEffect(() => {
-    getCodeHandler(id)
-      .then((data) => updateEditorValue(data.data.data))
+    getCodeHandler({ id, userId: user?._id })
+      .then((data) => {
+        console.log(data);
+        updateEditorValue(data.data.data);
+      })
       .catch((err) => console.log(err));
-  },[id])
+  },[id, user?._id])
 
   function updateEditorValue(data) {
     if (data) {
@@ -55,7 +63,7 @@ function Code() {
     socket.emit("joinRoom", id);
 
     socket.on('roomJoined', (msg) => {
-      console.log("roomJoined",msg)
+      // console.log("roomJoined",msg)
     })
 
     socket.on("newCode", (data) => {
