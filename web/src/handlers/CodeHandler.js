@@ -8,9 +8,7 @@ import toast from 'react-hot-toast';
 const CodeHandler = () => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
-  // const code = useSelector((state) => state.editor.code);
   const codes = useSelector((state) => state.codeHistory.codesShares);
-
 
   const getCodeHandler = ({ id, userId }) => {
     try {
