@@ -64,7 +64,8 @@ const server = require("http").Server(app);
 
 dotenv.config();
 connectToDatabase();
-app.use(cors({ origin: [process.env.WEB_BASE_URL] }));
+// app.use(cors({ origin: [process.env.WEB_BASE_URL] }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // app.use(
