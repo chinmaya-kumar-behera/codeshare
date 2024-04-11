@@ -1,20 +1,31 @@
 import Editor from "@monaco-editor/react";
 import React from "react";
-import URLHandler from "../../../handlers/URLHandler";
 import useDebounce from "../../../hooks/useDebounce";
 import { socket } from "../../../config/socket";
+import { useSelector, useDispatch } from "react-redux";
+import CodeHandler from "../../../handlers/CodeHandler";
+import { setCode } from "../../../redux/code/editorSlice";
 
-const CodeEditor = ({ editorConfig, code, setCode, id }) => {
-  const { createCodeHandler } = URLHandler();
+const CodeEditor = ({ id }) => {
+  const { createCodeHandler } = CodeHandler();
+
+  const dispatch = useDispatch();
+  // const AuthData = useSelector((state) => state.auth.user);
+  const code = useSelector((state) => state.editor.code);
+  const codeData = useSelector((state) => state.editor.codeData);
+  const editor = useSelector((state) => state.editor.editor);
+  const isDisabled = useSelector((state) => state.editor.isDisabled);
+  const viewOnly = useSelector((state) => state.editor.viewOnly);
 
   const onChange = (value) => {
-    setCode(value);
-    uploadCode(value, id, editorConfig);
+    dispatch(setCode(value));
+    uploadCode(value, id, editor, viewOnly);
   };
 
-  const uploadCode = useDebounce((code, id, setting) => {
-    createCodeHandler({ id, code, setting }).then((res) => {});
-    socket.emit("codeShare", id, { setting, code });
+  const uploadCode = useDebounce((code, id, setting, viewOnly) => {
+    createCodeHandler({ id, code, setting, viewOnly }).then((res) => { 
+      socket.emit("codeShare", id, { setting, code, viewOnly, ...codeData });
+    }).catch(err=>console.log(err))
   }, 2000);
 
   return (
@@ -24,14 +35,14 @@ const CodeEditor = ({ editorConfig, code, setCode, id }) => {
         className="no-scrollbar"
         height="93vh"
         readonly={true}
-        language={editorConfig.language}
+        language={editor.language}
         theme="vs-dark"
         value={code}
         onChange={onChange}
         options={{
-          readOnly: editorConfig.isEditable,
+          readOnly: isDisabled,
           inlineSuggest: true,
-          fontSize: editorConfig.fontSize + "px",
+          fontSize: editor.fontSize + "px",
           formatOnType: true,
           autoClosingBrackets: true,
           minimap: { enabled: false },

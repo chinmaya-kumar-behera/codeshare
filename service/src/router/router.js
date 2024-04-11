@@ -1,5 +1,5 @@
 const express = require("express");
-const { getCode, createCode } = require("../controller/urlController");
+const { getCode, createCode, getCodes, deleteCode } = require("../controller/urlController");
 const { signUp, login } = require("../controller/userController");
 
 
@@ -16,6 +16,8 @@ AppRouter.post("/", async(req, res) => {
     res.send({data:req.body});
 });
 AppRouter.post("/:id", createCode);
+AppRouter.get("/api/getcodes/:id", getCodes);
+AppRouter.get("/api/deletecode/:id", deleteCode);
 
 
 

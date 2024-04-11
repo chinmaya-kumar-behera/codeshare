@@ -3,8 +3,11 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { FaDownload, FaPlus } from "react-icons/fa6";
 import Settings from "./Settings";
 import NavigationHandler from "../../../handlers/NavigationHandler";
+import { useSelector } from "react-redux";
 
-const SettingBar = ({ setEditConfig, editorConfig, code }) => {
+const SettingBar = ({id}) => {
+  const code = useSelector((state) => state.editor.code);
+
   const { navigateToNewUrl, generateRandomString } = NavigationHandler();
   const [aside, setAside] = useState(false);
   const asideRef = useRef(null);
@@ -63,8 +66,7 @@ const SettingBar = ({ setEditConfig, editorConfig, code }) => {
         >
           <Settings
             toggle={toggleAside}
-            setEditConfig={setEditConfig}
-            editorConfig={editorConfig}
+            id={id}
           />
         </aside>
         <div className="h-full flex flex-col gap-[1px] items-center">
@@ -81,7 +83,6 @@ const SettingBar = ({ setEditConfig, editorConfig, code }) => {
           <div className="p-4 bg-[#31353f] group" onClick={newPageHandler}>
             <FaPlus
               className="text-xl group-hover:text-white transition-all"
-              // onClick={navigateToNewUrl}
             />
           </div>
           <div className="bg-[#31353f] w-full h-full"></div>
