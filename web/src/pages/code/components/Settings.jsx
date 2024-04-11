@@ -1,11 +1,20 @@
 import React from 'react'
 import { RxCross1 } from 'react-icons/rx';
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setEditor, setViewOnly } from '../../../redux/code/editorSlice';
 
-const Settings = ({ toggle, setEditConfig, editorConfig }) => {
+const Settings = ({ toggle }) => {
+  const dispatch = useDispatch();
+  const authData = useSelector((state) => state.auth.user);
+  const codeData = useSelector((state) => state.editor.codeData);
+
+  const editor = useSelector((state) => state.editor.editor);
+  const isDisabled = useSelector((state) => state.editor.isDisabled);
+  const viewOnly = useSelector((state) => state.editor.viewOnly);
 
   const user = useSelector((state) => state.auth.user);
+
   const Languages = [
     { name: "JavaScript", value: "javascript" },
     { name: "Python", value: "python" },
@@ -17,17 +26,46 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
-    setEditConfig((prev) => ({ ...prev, [name]: value }));
+    dispatch(setEditor({ [name]: value }));
   };
 
   const onCheckChange = (event) => {
     if (user?._id) {
       const { checked } = event.target;
-      setEditConfig((prev) => ({ ...prev, isEditable: checked }));
-      if (checked) toast.success("Switched to view only mode !");
+      dispatch(setViewOnly(checked));
+      if (checked) toast.success("Switched to viewonly mode !");
     } else {
       toast.error('Please log in to use this feature !')
     }
+  }
+
+  const renderViewOnlyComponent = () => {
+    if (
+      (authData?._id && codeData?.user && authData?._id == codeData?.user) ||
+      (!authData?._id && !codeData?.user)
+    )
+      return (
+        <div className="form-field">
+          <label>"View only" mode</label>
+          <label
+            className="switch hint--top"
+            data-hint="Sorry, only registered users can manage permissions."
+          >
+            <input
+              type="checkbox"
+              className="switch-input"
+              onChange={onCheckChange}
+              disabled={isDisabled}
+              checked={viewOnly}
+            />
+            <span className="switch-label" data-on="On" data-off="Off"></span>
+            <span className="switch-handle"></span>
+          </label>
+          <p className="note">
+            Turn on "view only" mode if you dont want others to edit the code
+          </p>
+        </div>
+      );
   }
   
   return (
@@ -45,16 +83,16 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
           </label>
           <select
             name="language"
-            hint={`${editorConfig.isEditable && 'Cannot change while redonly mode!'}`}
+            hint={`${isDisabled && "Cannot change while redonly mode!"}`}
             onChange={onChangeHandler}
-            value={editorConfig.language}
+            value={editor.language}
             className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
-            disabled={editorConfig.isEditable}
+            disabled={isDisabled}
           >
             {Languages.map((el) => (
               <option
                 className={`${
-                  editorConfig.language == el.value && "text-[#ec3360]"
+                  editor.language === el.value && "text-[#ec3360]"
                 }`}
                 key={el.value}
                 value={el.value}
@@ -72,13 +110,13 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
           <select
             name="fontSize"
             onChange={onChangeHandler}
-            value={editorConfig.fontSize}
+            value={editor.fontSize}
             className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg block w-full p-2.5"
-            disabled={editorConfig.isEditable}
+            disabled={isDisabled}
           >
             {fontSizes.map((el) => (
               <option
-                className={`${editorConfig.fontSize == el && "text-[#ec3360]"}`}
+                className={`${editor.fontSize === el && "text-[#ec3360]"}`}
                 key={el}
                 value={el}
               >
@@ -87,26 +125,9 @@ const Settings = ({ toggle, setEditConfig, editorConfig }) => {
             ))}
           </select>
         </div>
-        <div class="form-field">
-          <label for="view-only">"View only" mode</label>
-          <label
-            class="switch hint--top"
-            data-hint="Sorry, only registered users can manage permissions."
-          >
-            <input
-              type="checkbox"
-              class="switch-input"
-              onChange={onCheckChange}
-              disabled={editorConfig.isEditable}
-              checked={editorConfig.isEditable}
-            />
-            <span class="switch-label" data-on="On" data-off="Off"></span>
-            <span class="switch-handle"></span>
-          </label>
-          <p class="note">
-            Turn on "view only" mode if you dont want others to edit the code
-          </p>
-        </div>
+
+        {renderViewOnlyComponent()}
+        
       </div>
     </div>
   );

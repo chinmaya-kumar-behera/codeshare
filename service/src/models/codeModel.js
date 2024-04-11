@@ -5,8 +5,8 @@ const anoCodeSchema = mongoose.Schema({
   setting: {
     fontSize: { type: Number },
     language: { type: String },
-    isEditable: { type: Boolean, default: true},
   },
+  viewOnly: { type: Boolean, default: false },
   code: { type: String },
   deviceToken: { type: String, default: null },
   user: { type: mongoose.Types.ObjectId, default: null },
