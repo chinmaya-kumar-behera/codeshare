@@ -5,7 +5,7 @@ import Settings from "./Settings";
 import NavigationHandler from "../../../handlers/NavigationHandler";
 import { useSelector } from "react-redux";
 
-const SettingBar = () => {
+const SettingBar = ({id}) => {
   const code = useSelector((state) => state.editor.code);
 
   const { navigateToNewUrl, generateRandomString } = NavigationHandler();
@@ -66,6 +66,7 @@ const SettingBar = () => {
         >
           <Settings
             toggle={toggleAside}
+            id={id}
           />
         </aside>
         <div className="h-full flex flex-col gap-[1px] items-center">

@@ -3,8 +3,9 @@ import { RxCross1 } from 'react-icons/rx';
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditor, setViewOnly } from '../../../redux/code/editorSlice';
+import CodeHandler from '../../../handlers/CodeHandler';
 
-const Settings = ({ toggle }) => {
+const Settings = ({ toggle, id  }) => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
   const codeData = useSelector((state) => state.editor.codeData);
@@ -12,6 +13,7 @@ const Settings = ({ toggle }) => {
   const editor = useSelector((state) => state.editor.editor);
   const isDisabled = useSelector((state) => state.editor.isDisabled);
   const viewOnly = useSelector((state) => state.editor.viewOnly);
+  const code = useSelector((state) => state.editor.code);
 
   const user = useSelector((state) => state.auth.user);
 

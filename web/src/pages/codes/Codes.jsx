@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector } from "react-redux";
 import CodeHandler from '../../handlers/CodeHandler';
 import NavigationHandler from '../../handlers/NavigationHandler';
-import Header from '../../views/header/Header';
 import Profile from '../../views/header/Profile';
 
 const Codes = () => {

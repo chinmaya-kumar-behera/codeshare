@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCode, setEditor, setDisabled, setViewOnly, setCodeData} from "../redux/code/editorSlice";
 import { setCodesHistory } from "../redux/code/codeHistorySlice";
 import toast from 'react-hot-toast';
+import useDebounce from "../hooks/useDebounce";
 
 const CodeHandler = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const CodeHandler = () => {
             dispatch(setDisabled(false));
           } else {
             dispatch(setDisabled(true));
+            showViewOnly();
           }
         } else {
           // dispatch(setDisabled(true));
@@ -49,6 +51,17 @@ const CodeHandler = () => {
       }
     }
   }
+
+    const showViewOnly = useDebounce(() => {
+      toast.success("You are in 'vieweonly' mode", {
+        icon: "",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }, 4000);
 
   // create code
   const createCodeHandler = (data) => {
