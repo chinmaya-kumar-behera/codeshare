@@ -11,6 +11,9 @@ This project is a clone of the popular CodeShare website, allowing users to coll
 ## Features
 
 - Real-time code collaboration.
+- User authentication mechanisms including login and signup functionalities.
+- User-centric dashboard providing detailed insights into code sharing history and activity.
+- ’view-only’ mode feature allowing users to restrict access to shared code to
 - Download the codes as text file.
 - Syntax highlighting for various programming languages. (like JavaScript and Python)
 - Code sharing with unique URLs.
