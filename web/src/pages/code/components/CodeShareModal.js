@@ -97,7 +97,7 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div class="form-field">
+        {/* <div class="form-field">
           <label for="view-only">"View only" mode</label>
           <label
             class="switch hint--top"
@@ -110,7 +110,7 @@ const CodeShareModal = ({ isOpen, onClose }) => {
           <p class="note">
             Turn on "view only" mode if you dont want others to edit the code
           </p>
-        </div>
+        </div> */}
 
         <div className="mt-5">
           <button className="px-4 py-2 bg-[#ec3360] rounded" onClick={onClose}>
