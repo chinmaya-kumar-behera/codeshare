@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { createCodeService, getCodeService } from "../services/urlService";
+import { createCodeService, deleteCodesService, getCodeService, getCodesService } from "../services/urlService";
 import { useSelector, useDispatch } from "react-redux";
 import { setCode, setEditor, setDisabled, setViewOnly, setCodeData} from "../redux/code/editorSlice";
+import { setCodesHistory } from "../redux/code/codeHistorySlice";
+import toast from 'react-hot-toast';
 
 const CodeHandler = () => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
-  const code = useSelector((state) => state.editor.code);
+  // const code = useSelector((state) => state.editor.code);
+  const codes = useSelector((state) => state.codeHistory.codesShares);
+
 
   const getCodeHandler = ({ id, userId }) => {
     try {
@@ -19,8 +23,6 @@ const CodeHandler = () => {
       console.log(err);
     }
   };
-
-
 
 
   function updateEditor(data) {
@@ -55,10 +57,27 @@ const CodeHandler = () => {
     return createCodeService({ ...data, user: authData?._id });
   };
 
+  const getCodesHandler = async(data) => {
+    const result = await getCodesService(data);
+    console.log(result.data.data);
+    dispatch(setCodesHistory(result.data.data));
+  }
+
+
+    const deleteCodesHandler = async (data) => {
+      const result = await deleteCodesService(data);
+      console.log(result.data.data);
+      toast.success('Deleted successfully!')
+      const newArr = codes.filter((el) => el._id !== result.data.data._id);
+      dispatch(setCodesHistory(newArr));
+    };
+
   return {
     updateEditor,
     getCodeHandler,
     createCodeHandler,
+    getCodesHandler,
+    deleteCodesHandler,
   };
 };
 

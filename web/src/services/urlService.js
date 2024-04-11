@@ -12,3 +12,17 @@ export const createCodeService = (data) => {
     data
   );
 };
+
+export const getCodesService = ({ userId }) => {
+  console.log(userId);
+  return axios.get(
+    `${process.env.REACT_APP_BACKEND_BASE_URL}/api/getcodes/${userId}`,
+  );
+};
+
+export const deleteCodesService = ({ id }) => {
+  console.log(id);
+  return axios.get(
+    `${process.env.REACT_APP_BACKEND_BASE_URL}/api/deletecode/${id}`
+  );
+};

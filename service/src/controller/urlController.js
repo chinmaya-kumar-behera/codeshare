@@ -38,7 +38,7 @@ const createCode = async (req, res) => {
         viewOnly,
       });
     }
-  
+    
     res.status(200).json({ msg: "code created successfully", data: result });
   } catch (error) {
     console.error("Error in createCode:", error);
@@ -46,4 +46,38 @@ const createCode = async (req, res) => {
   }
 };
 
-module.exports = { getCode, createCode };
+const getCodes = async (req, res) => {
+  console.log('getcodes controller called');
+
+  try {
+    const { id } = req.params;
+    console.log(id);
+    if (!id) {
+      return res.status(404).json({ Message: "Id not found!" });
+    }
+    const result = await codeModel.find({ user:id });
+
+    res.status(200).json({ message: "fetched", data: result });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+}
+
+const deleteCode = async (req, res) => {
+  console.log("delete codes controller called");
+
+  try {
+    const { id } = req.params;
+    // console.log(id);
+    if (!id) {
+      return res.status(404).json({ Message: "Id not found!" });
+    }
+    const result = await codeModel.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Deleted ", data: result });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getCode, createCode, getCodes, deleteCode };
