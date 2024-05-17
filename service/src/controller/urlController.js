@@ -12,16 +12,27 @@ const getCode = async (req, res) => {
   }
 };
 
+const updateExistingCode = () => {
+  
+}
+
 const createCode = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(req.body)
-    const { setting, code, viewOnly, user} = req.body;
-
-    let result;
+    const { setting, code, viewOnly, user } = req.body;
+    
     const isAvailable = await codeModel.findOne({ url: id });
+    // console.log('user is ', user == isAvailable.user);
+    
+    let result;
 
     if (isAvailable) {
+      if (isAvailable?.user && isAvailable.viewOnly && user != isAvailable?.user) {
+        return res
+          .status(400)
+          .json({ message: "you cannot write to a viewonly code snippet!" });
+      }
+    
       isAvailable.code = code;
       isAvailable.setting = setting;
       isAvailable.viewOnly = viewOnly;

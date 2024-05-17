@@ -13,7 +13,7 @@ const Settings = ({ toggle, id  }) => {
   const editor = useSelector((state) => state.editor.editor);
   const isDisabled = useSelector((state) => state.editor.isDisabled);
   const viewOnly = useSelector((state) => state.editor.viewOnly);
-  const code = useSelector((state) => state.editor.code);
+  // const code = useSelector((state) => state.editor.code);
 
   const user = useSelector((state) => state.auth.user);
 
@@ -41,11 +41,8 @@ const Settings = ({ toggle, id  }) => {
     }
   }
 
-  const renderViewOnlyComponent = () => {
-    if (
-      (authData?._id && codeData?.user && authData?._id == codeData?.user) ||
-      (!authData?._id && !codeData?.user)
-    )
+  const renderViewOnlyButtonComponent = () => {
+    if (true) {
       return (
         <div className="form-field">
           <label>"View only" mode</label>
@@ -67,7 +64,8 @@ const Settings = ({ toggle, id  }) => {
             Turn on "view only" mode if you dont want others to edit the code
           </p>
         </div>
-      );
+      )
+    }
   }
   
   return (
@@ -128,8 +126,7 @@ const Settings = ({ toggle, id  }) => {
           </select>
         </div>
 
-        {renderViewOnlyComponent()}
-        
+        {authData?._id && renderViewOnlyButtonComponent()}
       </div>
     </div>
   );

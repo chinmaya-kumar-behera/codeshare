@@ -5,8 +5,9 @@ import { socket } from "../../../config/socket";
 import { useSelector, useDispatch } from "react-redux";
 import CodeHandler from "../../../handlers/CodeHandler";
 import { setCode } from "../../../redux/code/editorSlice";
+import { FaEye } from "react-icons/fa";
 
-const CodeEditor = ({ id }) => {
+const CodeEditor = ({ id, viewMode }) => {
   const { createCodeHandler } = CodeHandler();
 
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const CodeEditor = ({ id }) => {
   }, 2000);
 
   return (
-    <div className="editor-container">
+    <div className="editor-container relative">
       <Editor
         placeholder="hello hii bye"
         className="no-scrollbar"
@@ -48,6 +49,14 @@ const CodeEditor = ({ id }) => {
           minimap: { enabled: false },
         }}
       />
+      {viewMode && (
+        <div className="absolute left-3 bottom-2 ">
+          <span className="text-gray-200 text-xs flex gap-1 items-center">
+            <FaEye className="text-xl" />
+            You are in <strong>View only</strong> Mode
+          </span>
+        </div>
+      )}
     </div>
   );
 };

@@ -17,8 +17,6 @@ function Code() {
     getCodeHandler({ id, userId: user?._id });
   },[id, user?._id])
 
-  // document.writeText("Hello users");
-
   const authData = {}
 
   useEffect(() => {
@@ -42,14 +40,12 @@ function Code() {
   }, [id]);
 
   return (
-    <div className="">
+    <div className="relative">
       <CodeHeader />
       <div className="max-h-[calc(100vh-50px)] w-full">
         <div className="w-full h-full relative">
           <SettingBar id={id} />
-          <CodeEditor
-            id={id}
-          />
+          <CodeEditor id={id} viewMode={true} />
         </div>
       </div>
     </div>

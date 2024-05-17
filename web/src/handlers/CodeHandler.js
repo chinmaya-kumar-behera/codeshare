@@ -26,29 +26,42 @@ const CodeHandler = () => {
 
   function updateEditor(data) {
     if (data) {
-      console.log(data);
       const { code, setting, viewOnly, user, ...rest } = data;
       dispatch(setCode(code));
       dispatch(setEditor({ ...setting }));
-      dispatch(setViewOnly(viewOnly));
       dispatch(setCodeData({ ...rest, user }));
-      console.log("viewonly is ", viewOnly)
-      console.log(authData);
-      if (viewOnly) {
-        console.log(user, authData);
-        if (user && authData?._id) {
-          if (user === authData._id) {
-            dispatch(setDisabled(false));
-          } else {
-            dispatch(setDisabled(true));
-            showViewOnly();
-          }
-        } else {
-          // dispatch(setDisabled(true));
-        }
-      } else {
-        dispatch(setDisabled(false));
-      }
+      dispatch(setViewOnly(viewOnly));
+      // dispatch(setDisabled(viewOnly));
+      
+     
+      // showViewOnly();
+      // console.log("mode",viewOnly);
+      // if (viewOnly) {
+      //   console.log(authData?._id);
+      //   if (authData?._id) {
+      //     console.log("check ", authData?._id == user);
+      //     if (authData?._id == user) {
+      //        dispatch(setDisabled(false));
+      //     } else {
+      //       dispatch(setDisabled(true));
+      //       showViewOnly();
+      //     }
+      //   } else {
+      //     dispatch(setDisabled(true));
+      //     showViewOnly();
+      //   }
+
+      //   // if (user && authData?._id) {
+      //   //   if (user === authData?._id) {
+      //   //     dispatch(setDisabled(false));
+      //   //   } else {
+      //       // dispatch(setDisabled(true));
+      //       // showViewOnly();
+      //   //   }
+      //   // } else {
+      //   //   // dispatch(setDisabled(true));
+      //   // }
+      // }
     }
   }
 
@@ -61,7 +74,7 @@ const CodeHandler = () => {
           color: "#fff",
         },
       });
-    }, 4000);
+    }, 1000);
 
   // create code
   const createCodeHandler = (data) => {
