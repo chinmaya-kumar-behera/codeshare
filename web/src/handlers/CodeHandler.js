@@ -31,8 +31,8 @@ const CodeHandler = () => {
       dispatch(setEditor({ ...setting }));
       dispatch(setCodeData({ ...rest, user }));
       dispatch(setViewOnly(viewOnly));
-      // dispatch(setDisabled(viewOnly));
       
+      // dispatch(setDisabled(viewOnly));
      
       // showViewOnly();
       // console.log("mode",viewOnly);
