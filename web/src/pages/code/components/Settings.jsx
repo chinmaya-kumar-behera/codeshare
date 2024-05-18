@@ -3,12 +3,11 @@ import { RxCross1 } from 'react-icons/rx';
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditor, setViewOnly } from '../../../redux/code/editorSlice';
-import UseRenderViewOnlyButton from '../../../hooks/UseRenderViewOnlyButton';
 
 const Settings = ({ toggle, id  }) => {
   const dispatch = useDispatch();
-  // const authData = useSelector((state) => state.auth.user);
-  // const codeData = useSelector((state) => state.editor.codeData);
+  const authData = useSelector((state) => state.auth.user);
+  const codeData = useSelector((state) => state.editor.codeData);
 
   const editor = useSelector((state) => state.editor.editor);
   const isDisabled = useSelector((state) => state.editor.isDisabled);
@@ -35,11 +34,36 @@ const Settings = ({ toggle, id  }) => {
     if (user?._id) {
       const { checked } = event.target;
       dispatch(setViewOnly(checked));
+      
       if (checked) toast.success("Switched to viewonly mode !");
+
     } else {
       toast.error('Please log in to use this feature !')
     }
   }
+
+    const checkEditorDisabled = () => {
+      if (viewOnly) {
+        if (codeData.user == authData?._id) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+  };
+
+  const dataHint = () => {
+    if (authData?._id) {
+      if (codeData.user === authData?._id && !viewOnly) {
+        return "Enable view only mode!";
+      } else return "You cannot change!";
+    } else {
+      return "login to access this feature!"
+    }
+  }
+
 
   const renderViewOnlyButtonComponent = () => {
     return (
@@ -47,13 +71,13 @@ const Settings = ({ toggle, id  }) => {
         <label>"View only" mode</label>
         <label
           className="switch hint--top"
-          data-hint="Sorry, only registered users can manage permissions."
+          data-hint={dataHint()}
         >
           <input
             type="checkbox"
-            className="switch-input"
+            className="switch-input disabled:cursor-no-drop"
             onChange={onCheckChange}
-            disabled={isDisabled}
+            disabled={checkEditorDisabled()}
             checked={viewOnly}
           />
           <span className="switch-label" data-on="On" data-off="Off"></span>
@@ -124,7 +148,7 @@ const Settings = ({ toggle, id  }) => {
           </select>
         </div>
 
-        {UseRenderViewOnlyButton() && renderViewOnlyButtonComponent()}
+        {renderViewOnlyButtonComponent()}
       </div>
     </div>
   );

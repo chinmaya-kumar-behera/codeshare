@@ -11,11 +11,10 @@ const CodeEditor = ({ id, viewMode }) => {
   const { createCodeHandler } = CodeHandler();
 
   const dispatch = useDispatch();
-  // const AuthData = useSelector((state) => state.auth.user);
+  const authData = useSelector((state) => state.auth.user);
   const code = useSelector((state) => state.editor.code);
   const codeData = useSelector((state) => state.editor.codeData);
   const editor = useSelector((state) => state.editor.editor);
-  const isDisabled = useSelector((state) => state.editor.isDisabled);
   const viewOnly = useSelector((state) => state.editor.viewOnly);
 
   const onChange = (value) => {
@@ -29,6 +28,19 @@ const CodeEditor = ({ id, viewMode }) => {
     }).catch(err=>console.log(err))
   }, 2000);
 
+  const checkEditorDisabled = () => {
+    
+    if (viewOnly) {
+      if (codeData.user == authData?._id) {
+         return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
   return (
     <div className="editor-container relative">
       <Editor
@@ -41,7 +53,7 @@ const CodeEditor = ({ id, viewMode }) => {
         value={code}
         onChange={onChange}
         options={{
-          readOnly: isDisabled,
+          readOnly: checkEditorDisabled(),
           inlineSuggest: true,
           fontSize: editor.fontSize + "px",
           formatOnType: true,
@@ -49,7 +61,7 @@ const CodeEditor = ({ id, viewMode }) => {
           minimap: { enabled: false },
         }}
       />
-      {viewMode && (
+      {checkEditorDisabled() && (
         <div className="absolute left-3 bottom-2 ">
           <span className="text-gray-200 text-xs flex gap-1 items-center">
             <FaEye className="text-xl" />
