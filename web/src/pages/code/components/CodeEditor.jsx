@@ -12,9 +12,9 @@ const CodeEditor = ({ id, viewMode }) => {
 
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
-  const code = useSelector((state) => state.editor.code);
   const codeData = useSelector((state) => state.editor.codeData);
   const editor = useSelector((state) => state.editor.editor);
+  const code = useSelector((state) => state.editor.code);
   const viewOnly = useSelector((state) => state.editor.viewOnly);
 
   const onChange = (value) => {

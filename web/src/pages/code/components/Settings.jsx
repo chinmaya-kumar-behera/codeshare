@@ -3,18 +3,21 @@ import { RxCross1 } from 'react-icons/rx';
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditor, setViewOnly } from '../../../redux/code/editorSlice';
+import CodeHandler from '../../../handlers/CodeHandler';
+import { socket } from '../../../config/socket';
 
 const Settings = ({ toggle, id  }) => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
   const codeData = useSelector((state) => state.editor.codeData);
-
   const editor = useSelector((state) => state.editor.editor);
   const isDisabled = useSelector((state) => state.editor.isDisabled);
   const viewOnly = useSelector((state) => state.editor.viewOnly);
-  // const code = useSelector((state) => state.editor.code);
-
+  const code = useSelector((state) => state.editor.code);
   const user = useSelector((state) => state.auth.user);
+
+  const { createCodeHandler } = CodeHandler();
+
 
   const Languages = [
     { name: "JavaScript", value: "javascript" },
@@ -34,7 +37,19 @@ const Settings = ({ toggle, id  }) => {
     if (user?._id) {
       const { checked } = event.target;
       dispatch(setViewOnly(checked));
-      
+
+      // createCodeHandler({ id, code, setting:editor, viewOnly })
+      //   .then((res) => {
+      //     console.log(res)
+      //     socket.emit("codeShare", id, {
+      //       setting: editor,
+      //       code,
+      //       viewOnly,
+      //       ...codeData,
+      //     });
+      //   })
+      //   .catch((err) => console.log(err));
+
       if (checked) toast.success("Switched to viewonly mode !");
 
     } else {
